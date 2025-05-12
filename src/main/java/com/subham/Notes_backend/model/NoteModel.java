@@ -1,10 +1,10 @@
 package com.subham.Notes_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -12,40 +12,29 @@ public class NoteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
-    private String Note;
-    private String CurrentDateTime;
+    private int id;
+    private String note;
+    @CreationTimestamp
+    private LocalDateTime currentDateTime;
+    @UpdateTimestamp
+    private LocalDateTime updatedDateTime;
+    @ElementCollection
+    private List<String> tags;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNote() {
-        return Note;
+        return note;
     }
 
     public void setNote(String note) {
-        Note = note;
-    }
-
-    public String getCurrentDateTime() {
-        return CurrentDateTime;
-    }
-
-    public void setCurrentDateTime(String currentDateTime) {
-        CurrentDateTime = currentDateTime;
-    }
-
-    public String getUpdatedDateTime() {
-        return UpdatedDateTime;
-    }
-
-    public void setUpdatedDateTime(String updatedDateTime) {
-        UpdatedDateTime = updatedDateTime;
+        this.note = note;
     }
 
     public List<String> getTags() {
@@ -55,7 +44,4 @@ public class NoteModel {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
-
-    private String UpdatedDateTime;
-    private List<String> tags;
 }
