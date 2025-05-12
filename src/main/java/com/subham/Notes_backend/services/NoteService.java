@@ -15,7 +15,6 @@ public class NoteService {
     private NoteRepo noteRepo;
 
     public void addNote(NoteModel noteModel) {
-
         noteRepo.save(noteModel);
     }
 
