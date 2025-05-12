@@ -18,7 +18,6 @@ public class NoteModel {
     private LocalDateTime currentDateTime;
     @UpdateTimestamp
     private LocalDateTime updatedDateTime;
-    @ElementCollection
     private List<String> tags;
 
     public int getId() {
