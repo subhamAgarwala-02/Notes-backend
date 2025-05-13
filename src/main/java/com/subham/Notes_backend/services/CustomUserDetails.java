@@ -1,13 +1,15 @@
 package com.subham.Notes_backend.services;
 
+import com.subham.Notes_backend.dto.UserDTO;
 import com.subham.Notes_backend.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
 
-
+//@Component
 public class CustomUserDetails implements UserDetails {
 
     private final UserModel user;
@@ -18,7 +20,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

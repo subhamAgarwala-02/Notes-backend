@@ -1,4 +1,4 @@
-package com.subham.Notes_backend.model;
+package com.subham.Notes_backend.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -6,8 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
-@Entity
-public class UserModel {
+public class UserDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,14 +24,14 @@ public class UserModel {
 
     // Fixed the mappedBy to 'user' which is the field name in NoteModel
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NoteModel> notes;
+    private List<NoteDTO> notes;
 
     // Getters and Setters
-    public List<NoteModel> getNotes() {
+    public List<NoteDTO> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<NoteModel> notes) {
+    public void setNotes(List<NoteDTO> notes) {
         this.notes = notes;
     }
 

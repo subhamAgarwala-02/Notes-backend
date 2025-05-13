@@ -23,6 +23,7 @@ public class SecurityConfig{
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
 public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetailsService){
@@ -35,8 +36,8 @@ public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetail
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/signUp").permitAll()
-                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/auth/signUp", "/auth/login").permitAll()
+                        .requestMatchers("/api/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(ses -> ses.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

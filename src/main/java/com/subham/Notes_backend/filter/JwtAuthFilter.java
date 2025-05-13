@@ -18,6 +18,7 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
+
     @Autowired
     private JwtService jwtService;
 
@@ -34,15 +35,31 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
+        System.out.println("Incoming request URI: " + request.getRequestURI());
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            username = jwtService.extractUsername(token);
+            System.out.println("Extracted Token: " + token);
+
+            try {
+                username = jwtService.extractUsername(token);
+                System.out.println("Extracted Username: " + username);
+            } catch (Exception e) {
+                System.out.println("Exception while extracting username from token: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Authorization header is missing or doesn't start with Bearer");
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            System.out.println("Authorities from UserDetails: " + userDetails.getAuthorities());
+
+            System.out.println("Loaded UserDetails for: " + username);
 
             if (jwtService.validateToken(token, userDetails)) {
+                System.out.println("Token is VALID");
+
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
@@ -51,7 +68,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                System.out.println("Token is INVALID");
             }
+        } else if (username == null) {
+            System.out.println("Username is null, skipping authentication setup");
+        } else {
+            System.out.println("Already authenticated: " + SecurityContextHolder.getContext().getAuthentication());
         }
 
         filterChain.doFilter(request, response);

@@ -1,4 +1,4 @@
-package com.subham.Notes_backend.model;
+package com.subham.Notes_backend.dto;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -6,13 +6,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
-public class NoteModel {
+public class NoteDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String note;
 
     @CreationTimestamp
@@ -23,19 +19,10 @@ public class NoteModel {
 
     private String tags;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserModel user;
+    // The UserDTO object to store user information
+    private UserDTO user;
 
     // Getters and Setters
-    public UserModel getUserModel() {
-        return user;
-    }
-
-    public void setUserModel(UserModel userModel) {
-        this.user = userModel;
-    }
-
     public int getId() {
         return id;
     }
@@ -74,5 +61,13 @@ public class NoteModel {
 
     public void setUpdatedDateTime(LocalDateTime updatedDateTime) {
         this.updatedDateTime = updatedDateTime;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 }
