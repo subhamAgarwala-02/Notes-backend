@@ -23,7 +23,6 @@ public class SecurityConfig{
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
 public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetailsService){
