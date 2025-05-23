@@ -74,7 +74,7 @@ public class NoteService {
 
         // Convert each NoteModel to NoteDTO and return the list
         return notes.stream()
-                .map(this::convertToDTO)
+                .map(this::convertToDTO) // this is shorthand for (note -> this.convertToDTO(note))
                 .collect(Collectors.toList());
     }
 
