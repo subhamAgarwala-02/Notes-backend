@@ -1,6 +1,6 @@
 package com.subham.Notes_backend.controller;
 
-import com.subham.Notes_backend.dto.UserDTO;
+import com.subham.Notes_backend.dto.LoginRequestDto;
 import com.subham.Notes_backend.model.UserModel;
 import com.subham.Notes_backend.services.JwtService;
 import com.subham.Notes_backend.services.UserService;
@@ -33,13 +33,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String getUser(@RequestBody UserModel userModel){
+    public String getUser(@RequestBody LoginRequestDto loginRequestDto){
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userModel.getUsername(), userModel.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPassword())
         );
 
         if(authentication.isAuthenticated()){
-            return jwtService.generateToken(userModel.getUsername());
+            return jwtService.generateToken(loginRequestDto.getUsername());
         }
         else return "User not found";
     }

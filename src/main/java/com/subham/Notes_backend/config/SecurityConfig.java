@@ -34,7 +34,13 @@ public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetail
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/signUp", "/auth/login").permitAll()
+                        .requestMatchers(
+                                "/auth/signUp",
+                                "/auth/login",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
                         .requestMatchers("/api/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )

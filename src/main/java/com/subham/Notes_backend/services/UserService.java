@@ -1,6 +1,5 @@
 package com.subham.Notes_backend.services;
 
-import com.subham.Notes_backend.dto.UserDTO;
 import com.subham.Notes_backend.model.UserModel;
 import com.subham.Notes_backend.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;

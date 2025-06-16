@@ -1,6 +1,5 @@
 package com.subham.Notes_backend.services;
 
-import com.subham.Notes_backend.dto.UserDTO;
 import com.subham.Notes_backend.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
